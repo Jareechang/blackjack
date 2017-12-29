@@ -28,9 +28,3 @@ class Dealer(CardManager):
             print("{} stays at {}".format(name, points))
 
         return None
-
-        # player_response = raw_input("{name}, do you wish to hit or stay ? \n".format(name=player_name))
-        # while player_response not in [HIT, STAY]:
-            # player_response = raw_input("{name}, do you wish to hit or stay ? \n".format(name=player_name))
-        # print("player responded with {response}".format(response=player_response))
-        # self.player_response = player_response
