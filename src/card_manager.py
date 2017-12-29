@@ -17,10 +17,10 @@ class CardManager:
             - Wrapper around Tracker and Card api to generate new card
     """
     def __init__(self):
-        self.tracker = Tracker(CARD_SUITS)
+        self.__tracker = Tracker(CARD_SUITS)
 
     def __get_new_card_suit(self):
-        tracker = self.tracker
+        tracker = self.__tracker
         available_suits = tracker.available_suits()
 
         if len(available_suits) == 0:
@@ -34,7 +34,7 @@ class CardManager:
         return new_suit
 
     def __generate_card_suit(self):
-        tracker = self.tracker
+        tracker = self.__tracker
         available_suits = tracker.available_suits()
 
         if len(available_suits) == 0:
@@ -48,14 +48,23 @@ class CardManager:
         return new_suit
 
     def __generate_card_number(self, suit):
-        tracker = self.tracker
+        tracker = self.__tracker
         number = random.randint(1, 12) 
         while number in tracker.dealt_cards[suit]:
             number = random.randint(1, 12) 
         return number
 
+    def contains_card(self, card):
+        tracker = self.__tracker
+        dealt_cards = tracker.dealt_cards
+        suit = card.suit
+        number = card.number
+        if number in dealt_cards[suit]:
+            return True
+        return False
+
     def generate_new_card(self):
-        tracker = self.tracker
+        tracker = self.__tracker
         suit = self.__generate_card_suit()
         number = self.__generate_card_number(suit)
         tracker.track_card(suit, number)
