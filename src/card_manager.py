@@ -9,7 +9,7 @@ CARD_SUITS = [
     'spade'
 ]
 
-class CardManager:
+class CardManager(object):
     """
         Card Manager
 
