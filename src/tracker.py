@@ -13,7 +13,7 @@ class Tracker:
             - Should not duplicate the cards
     """
     def __init__(self, suits):
-        self.available_suits = suits
+        self.suits = suits
         self.unavailable_suits = []
         self.dealt_cards = {}
         for suit in suits:
@@ -25,31 +25,12 @@ class Tracker:
     def reshuffle_deck(self):
         self.unavailable_suits = []
         self.dealt_cards = {}
-        for suit in self.available_suits:
+        for suit in self.suits:
             self.dealt_cards[suit] = []
 
-    def get_new_suit(self, available_suits):
-        if len(available_suits) > 1:
-            new_suit = available_suits[random.randint(0,3)]
-        else:
-            new_suit = available_suits[0]
-
-        return new_suit
-
-    def generate_card_suit(self):
-        available_suits = list(
-            set(self.available_suits)
+    def available_suits(self):
+        return list(set(self.suits)
             - set(self.unavailable_suits))
-
-        if len(available_suits) == 0:
-            self.reshuffle_deck()
-
-        new_suit = self.get_new_suit(available_suits)
-
-        while self.cards_all_dealt_in_suit(new_suit):
-            new_suit = self.get_new_suit(available_suits)
-
-        return new_suit
 
     def generate_card_number(self, suit):
         number = random.randint(1, 12) 
@@ -57,8 +38,10 @@ class Tracker:
             number = random.randint(1, 12) 
         return number
 
-    def generate_new_card(self):
-        suit = self.generate_card_suit()
-        number = self.generate_card_number(suit)
-        return Card(suit, number)
+    def track_card(self, suit, number):
+        card_tracking_slot = self.dealt_cards[suit]
+        card_tracking_slot.append(number)
+        unavailable_suits = self.unavailable_suits
+        if self.cards_all_dealt_in_suit(suit):
+            unavailable_suits.append(suit)
 
