@@ -8,9 +8,11 @@ class Tracker:
             It should tracks the card being issued and handle re-shuffles of the deck if required
 
         Features:
-            - Should issue cards in a random fashion
-            - Should not issue cards given a suit (diamond, clubs, heart and spade) within (1-12)
-            - Should not duplicate the cards
+            - Should be able to reshuffle deck
+            - Should generate a random card number (no duplicates)
+            - Should generate a random available suit
+            - Should track (register) cards -> both suit and number
+            - Should be able to return available suits
     """
     def __init__(self, suits):
         self.suits = suits
