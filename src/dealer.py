@@ -9,7 +9,7 @@ class Dealer(CardManager):
         self.player_response = STAY # default to stay
         super(Dealer, self).__init__()
 
-    def __deal_card(self, player_response):
+    def deal_card(self):
         return super(Dealer, self).generate_new_card()
 
     def analyze_response(self, player):
@@ -20,10 +20,10 @@ class Dealer(CardManager):
 
         name = player.name
         points = player.total_points
-        response = player.response
+        response = self.player_response
 
         if response == HIT:
-            return self.generate_new_card()
+            return self.deal_card()
         elif response == STAY:
             print("{} stays at {}".format(name, points))
 
